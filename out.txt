@@ -1,3 +1,21 @@
-In botany, a tree is a perennial plant with an elongated stem, or trunk, supporting branches and leaves in most species. In
-some usages, the definition of a tree may be narrower, including only woody plants with secondary growth, plants that are
+* Machine Learning Examples
+
+To see end-to-end examples of the interactive machine learning analyses that Colaboratory makes possible, check out these
+
+tutorials using models from TensorFlow Hub.
+
+A few featured examples:
+
+e Retraining an Image Classifier: Build a Keras model on top of a pre-trained image classifier to distinguish flowers.
+Text Classification: Classify IMDB movie reviews as either positive or negative.
+
+Style Transfer: Use deep learning to transfer style between images.
+Multilingual Universal Sentence Encoder Q&A: Use a machine learning model to answer questions from the SQUAD
+
+ 
+
+ 
+
+dataset.
+Video Interpolation: Predict what happened in a video between the first and the last frame.
 

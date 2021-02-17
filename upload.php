@@ -51,22 +51,62 @@ echo "NO. OF CHARACTER IN IMAGE 2: ".strlen($output2)."<br>";
 echo "NO. OF UNIQUE WORDS IN IMAGE 2: ".count($tokens2)."<br>";
 echo "--------------------------------------------------------------------------------------------------------------------------<br>";
 
+if(isset($_POST['factor'])){
+    $factor=$_POST['factor'];
+}
+// echo $factor;
+
+if($factor > count($tokens1)||$factor>(count($tokens2))){
+    echo "<h1>wrong comparison size, please input size less than words.<h1>";
+}
+else{
 fclose($myfile);
 echo "</pre>";
 echo "<br><br> OUTPUT: ";
 $count11=0;
 
-for($i=0;$i<count($tokens1);$i++){
-    for($j=0;$j<count($tokens1);$j++){
-           if($tokens1[$i]==$tokens2[$j]){
-               $count11++;
-           }    
-    }
+//algorithm  start 
+$stringout='';
+$stringin='';
+for($i=0;$i<$factor;$i++){
+    $stringout=$stringout." ".$tokens1[$i];
 }
-echo "<br> percentage % match taking one word at a time respect to image 1:  ". $count11/count($tokens1)*100,"%";
-echo "<br> percentage % match taking one word at a time respect to image 2:  ". $count11/count($tokens2)*100,"%<br><br>";
+// echo $stringout;
+// $t=$tokens1[0];
+// $stringout=str_replace($t,'',$stringout);
+// $stringout = $stringout." ".$tokens1[4];
+// echo $stringout;
+
+for($i=0;$i<$factor;$i++){
+    $stringin=$stringin." ".$tokens2[$i];
+}
+// echo $stringin;
+
+for($i=0;$i<(count($tokens1)-$factor);$i++){
+    for($j=0;$j<(count($tokens2)-$factor);$j++){
+        //    echo $stringin."---------".$stringout."<br>";
+        //    echo strlen($stringin)."---------".strlen($stringout)."<br>";
+
+           if($stringout==$stringin){
+               $count11++;
+           } 
+           $stringin= str_replace($tokens2[$j].' ','',$stringin);
+           $stringin= $stringin." ".$tokens2[$j+$factor];   
+    }
+    $stringout = str_replace($tokens1[$i].' ','',$stringout);
+    $stringout=$stringout." ".$tokens1[$i+$factor];
+    $stringin='';
+    for($k=0;$k<$factor;$k++){
+        $stringin=$stringin." ".$tokens2[$k];
+    }
+
+}
+//algo end
+echo $count11;
+
+echo "<br> percentage % match respect to image 1:  ". $count11/(count($tokens1)-$factor)*100,"%";
+echo "<br> percentage % match respect to image 2:  ". $count11/(count($tokens2)-$factor)*100,"%<br><br>";
 
 
-
-
+}
 ?>
