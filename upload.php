@@ -19,7 +19,7 @@ echo $output1;
 $output1 = implode(' ',array_unique(explode(' ', $output1)));
 $tokens1 = array_unique(explode(" ", $output1));
 echo "NO. OF CHARACTER IN IMAGE 1: ".strlen($output1)."<br>";
-echo "NO. OF UNIQUE WORDS IN IMAGE 1: ".count($tokens1)."<br>";
+// echo "NO. OF UNIQUE WORDS IN IMAGE 1: ".count($tokens1)."<br>";
 echo "--------------------------------------------------------------------------------------------------------------------------<br>";
 fclose($myfile);
 echo "</pre>";
@@ -48,7 +48,7 @@ $output2 = implode(' ',array_unique(explode(' ', $output2)));
 $tokens2 = array_unique(explode(" ", $output2));
 // echo $tokens[0]."<br>";
 echo "NO. OF CHARACTER IN IMAGE 2: ".strlen($output2)."<br>";
-echo "NO. OF UNIQUE WORDS IN IMAGE 2: ".count($tokens2)."<br>";
+// echo "NO. OF UNIQUE WORDS IN IMAGE 2: ".count($tokens2)."<br>";
 echo "--------------------------------------------------------------------------------------------------------------------------<br>";
 
 if(isset($_POST['factor'])){
@@ -110,3 +110,91 @@ echo "<br> percentage % match respect to image 2:  ". $count11/(count($tokens2)-
 
 }
 ?>
+<!-- <?php
+ 
+ $dataPoints = array( 
+     array("label"=>"matched with image two", "y"=>$count11/(count($tokens1)-$factor)*100),
+     array("label"=>"Not Matched", "y"=>100-$count11/(count($tokens1)-$factor)*100)
+    //  array("label"=>"IE", "y"=>8.47),
+    //  array("label"=>"Safari", "y"=>6.08),
+    //  array("label"=>"Edge", "y"=>4.29),
+    //  array("label"=>"Others", "y"=>4.59)
+ )
+  
+ ?>
+ <!DOCTYPE HTML>
+ <html>
+ <head>
+ <script>
+ window.onload = function() {
+  
+  
+ var chart = new CanvasJS.Chart("chartContainer", {
+     animationEnabled: true,
+     title: {
+         text: "image simalarity ratio"
+     },
+     subtitles: [{
+         text: "RATIO ONE"
+     }],
+     data: [{
+         type: "pie",
+         yValueFormatString: "#,##0.00\"%\"",
+         indexLabel: "{label} ({y})",
+         dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+     }]
+ });
+ chart.render();
+  
+ }
+ </script>
+ </head>
+ <body>
+ <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+ <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+ </body>
+ </html>   -->
+ <?php
+ 
+ $dataPoints = array( 
+     array("label"=>"Image Two Matched with image One", "y"=>$count11/(count($tokens1)-$factor)*100/2),
+     array("label"=>"Image one Matched with image Two", "y"=>$count11/(count($tokens2)-$factor)*100/2),
+     array("label"=>"Uncommon", "y"=>100-$count11/(count($tokens1)-$factor)*100/2-$count11/(count($tokens2)-$factor)*100/2)
+    //  array("label"=>"Safari", "y"=>6.08),
+    //  array("label"=>"Edge", "y"=>4.29),
+    //  array("label"=>"Others", "y"=>4.59)
+ )
+  
+ ?>
+ <!DOCTYPE HTML>
+ <html>
+ <head>
+ <script>
+ window.onload = function() {
+  
+  
+ var chart = new CanvasJS.Chart("chartContainer", {
+     animationEnabled: true,
+     title: {
+         text: "Image Simalarity Ratio"
+     },
+     subtitles: [{
+         text: ""
+     }],
+     data: [{
+         type: "pie",
+         yValueFormatString: "\"\"",
+         indexLabel: "{label} ({y})",
+         dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+     }]
+ });
+ chart.render();
+  
+ }
+ </script>
+ </head>
+ <body>
+ <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+ <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+ </body>
+ </html>  
